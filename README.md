@@ -1,13 +1,16 @@
 https://github.com/eartttpy1/web2/tree/main/lab2
+<br>
+<br>
+
+
+LAB1-----------<br>
+npm init -y
+npm install swagger-ui-express express yamljs
 
 <br>
 <br>
-LAB1
------------<br>
 
-<br>
-LAB3
------------<br>
+LAB3-----------<br>
 npm install @prisma/client@6 prisma@6 --save-dev<br>
 npx prisma init<br>
 __<br>
