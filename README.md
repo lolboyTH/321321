@@ -4,8 +4,8 @@ https://github.com/eartttpy1/web2/tree/main/lab2
 
 
 LAB1-----------<br>
-npm init -y
-npm install swagger-ui-express express yamljs
+npm init -y<br>
+npm install swagger-ui-express express yamljs<br>
 
 <br>
 <br>
@@ -27,5 +27,5 @@ npx prisma studio (เปิด db)<br>
 <br>
 
 LAB4-----------<br>
-npm init -y
-npm jsonwebtoken express
+npm init -y<br>
+npm jsonwebtoken express<br>
