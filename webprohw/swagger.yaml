@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: Book Store Inventory API
+  description: API สำหรับจัดการสต็อกและรายการหนังสือ
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000
+
+paths:
+  /books:
+    get:
+      summary: ดึงรายการหนังสือทั้งหมด (รองรับ search และ sort)
+      description: |
+        ส่งคืนรายการหนังสือแบบสรุป  
+        - search: ค้นหาจากชื่อหนังสือ  
+        - sortBy: ฟิลด์ที่ต้องการเรียง (name, year, price, stock)  
+        - order: asc หรือ desc
+      parameters:
+        - name: search
+          in: query
+          description: ค้นหาจากชื่อหนังสือ
+          schema:
+            type: string
+        - name: sortBy
+          in: query
+          description: ฟิลด์ที่ใช้ในการเรียงข้อมูล
+          schema:
+            type: string
+            example: price
+        - name: order
+          in: query
+          description: ลำดับการเรียงข้อมูล
+          schema:
+            type: string
+            enum: [asc, desc]
+            example: asc
+      responses:
+        '200':
+          description: สำเร็จ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookSummary'
+
+    post:
+      summary: เพิ่มหนังสือใหม่
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '201':
+          description: เพิ่มหนังสือสำเร็จ
+        '400':
+          description: ข้อมูลไม่ครบถ้วน (เช่น name หรือ price หาย)
+
+  /books/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: รหัส ID ของหนังสือ
+        schema:
+          type: integer
+
+    get:
+      summary: ดูรายละเอียดหนังสือตาม ID
+      responses:
+        '200':
+          description: พบข้อมูลหนังสือ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookFull'
+        '404':
+          description: ไม่พบหนังสือ
+
+    put:
+      summary: แก้ไขข้อมูลหนังสือ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '200':
+          description: แก้ไขข้อมูลสำเร็จ
+        '404':
+          description: ไม่พบหนังสือที่ต้องการแก้ไข
+
+    delete:
+      summary: ลบหนังสือออกจากระบบ
+      responses:
+        '200':
+          description: ลบหนังสือสำเร็จ
+        '404':
+          description: ไม่พบหนังสือที่ต้องการลบ
+
+components:
+  schemas:
+    BookSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Turtle and Rabbit"
+        year:
+          type: string
+          example: "2000"
+        priceDisplay:
+          type: string
+          example: "฿550"
+
+    BookFull:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        year:
+          type: string
+        price:
+          type: number
+        stock:
+          type: integer
+      example:
+        id: 1
+        name: "Alevel Math Advance"
+        year: "2024"
+        price: 1200
+        stock: 10
+
+    BookInput:
+      type: object
+      required:
+        - name
+        - price
+      properties:
+        name:
+          type: string
+        year:
+          type: string
+        price:
+          type: number
+        stock:
+          type: integer
+      example:
+        name: "Node.js Basics"
+        year: "2023"
+        price: 899
+        stock: 15
