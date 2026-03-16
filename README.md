@@ -1,5 +1,7 @@
 https://github.com/eartttpy1/web2/tree/main/lab2
 
+
+LAB3
 -----------<br>
 npm install @prisma/client@6 prisma@6 --save-dev<br>
 npx prisma init<br>
