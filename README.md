@@ -22,3 +22,7 @@ npx prisma migrate dev --name init<br>
 npx prisma generate<br>
 npx prisma migrate reset (ลบหมด)<br>
 npx prisma studio (เปิด db)<br>
+
+LAB4-----------<br>
+npm init -y
+npm jsonwebtoken express
