@@ -29,3 +29,5 @@ npx prisma studio (เปิด db)<br>
 LAB4-----------<br>
 npm init -y<br>
 npm jsonwebtoken express<br>
+-----------<br>
+npm install swagger-ui-express yamljs<br>
