@@ -1,0 +1,61 @@
+openapi: 3.1.0
+info:
+  title: Book Store Inventory API
+  description: API สำหรับจัดการสต็อกสินค้าและรายการหนังสือภายในร้าน
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local Development Server
+
+paths:
+  /login:
+    post:
+      summary: เข้าสู่ระบบ
+      description: ผู้ใช้สามารถเข้าสู่ระบบเพื่อรับโทเค็นการเข้าถึง
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: user1
+                password:
+                  type: string
+                  example: pass1234
+      responses:
+        '200':
+          description: เข้าสู่ระบบสำเร็จ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '401':
+          description: ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง
+
+  /admin-only:
+    get:
+      summary: เข้าถึงข้อมูลสำหรับผู้ดูแลระบบเท่านั้น
+      description: ผู้ใช้ที่มีบทบาทเป็นผู้ดูแลระบบสามารถเข้าถึงข้อมูลนี้ได้
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: เข้าถึงข้อมูลสำเร็จ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: ยินดีต้อนรับผู้ดูแลระบบ!
+        '403':
+          description: ไม่มีสิทธิ์เข้าถึงข้อมูลนี้
