@@ -30,4 +30,4 @@ LAB4-----------<br>
 npm init -y<br>
 npm jsonwebtoken express<br>
 -----------<br>
-npm install swagger-ui-express yamljs<br>
+npm install swagger-ui-express yamljs cors<br>
